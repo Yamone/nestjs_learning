@@ -6,16 +6,18 @@ import { ArticleModule } from './article/article.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SharedModule } from './shared/shared.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { async, config } from 'rxjs';
 import { ProfileModule } from './profile/profile.module';
 import { CategoryModule } from './category/category.module';
 import { ArticleCategoryModule } from './article-category/article-category.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -37,6 +39,7 @@ import { ArticleCategoryModule } from './article-category/article-category.modul
     ProfileModule,
     CategoryModule,
     ArticleCategoryModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
